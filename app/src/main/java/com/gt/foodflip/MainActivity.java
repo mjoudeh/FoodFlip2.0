@@ -92,7 +92,7 @@ public class MainActivity extends ActionBarActivity {
             return;
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("id", currentUser.getId());
+        editor.putString("user_id", currentUser.getId());
         editor.putString("karma", currentUser.getKarma());
         editor.apply();
     }
@@ -131,16 +131,17 @@ public class MainActivity extends ActionBarActivity {
      */
     public boolean getUser(String deviceId) {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://192.168.1.6/foodflip/getuser.php");
+        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/getuser.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("id", deviceId));
+            nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             String result = EntityUtils.toString(response.getEntity());
+            System.out.println(result);
             JSONObject user = new JSONObject(result);
-            currentUser.setId(user.getString("id"));
+            currentUser.setId(user.getString("user_id"));
             currentUser.setKarma(user.getString("karma"));
         } catch (ClientProtocolException e) {
             System.out.println("ClientProtocolException in getUser: " + e.getMessage());
@@ -160,12 +161,14 @@ public class MainActivity extends ActionBarActivity {
      */
     public void insertUser(String deviceId) {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://192.168.1.6/foodflip/insertuser.php");
+        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/insertuser.php");
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("id", deviceId));
+            nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
+            HttpResponse response= httpclient.execute(httppost);
+            String result = EntityUtils.toString(response.getEntity());
+            System.out.println(result);
             currentUser.setId(deviceId);
             currentUser.setKarma("0");
         } catch (ClientProtocolException e) {

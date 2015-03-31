@@ -41,16 +41,16 @@ class FFDB_Functions {
 	/**
 	 * Get user
 	 */
-	public function getUser($id) {
-		$result = mysql_query("SELECT * FROM users WHERE id = '$id'");
+	public function getUser($user_id) {
+		$result = mysql_query("SELECT * FROM users WHERE user_id = '$user_id'");
 		return $result;
 	}
 	
 	/**
 	 * Store new user
 	 */
-	public function storeUser($id) {
-		$result = mysql_query("INSERT INTO users(id, karma) VALUES('$id', '0')");
+	public function storeUser($user_id) {
+		$result = mysql_query("INSERT INTO users(user_id, karma) VALUES('$user_id', '0')");
 		
 		if ($result) {
 			return true;
@@ -63,9 +63,9 @@ class FFDB_Functions {
      * Storing new entry
      * returns entry details
      */
-    public function storeEntry($building, $location, $foodCategory, $foodType, $foodDescription) {
+    public function storeEntry($building, $location, $foodCategory, $foodType, $foodDescription, $user_id) {
         // Insert entry into database
-        $result = mysql_query("INSERT INTO food_entries(Building, Location, FoodCategory, FoodType, FoodDescription) VALUES('$building', '$location', '$foodCategory', '$foodType', '$foodDescription')");
+        $result = mysql_query("INSERT INTO food_entries(Building, Location, FoodCategory, FoodType, FoodDescription, user_id) VALUES('$building', '$location', '$foodCategory', '$foodType', '$foodDescription', '$user_id')");
 		
         if ($result) {
 			return true;

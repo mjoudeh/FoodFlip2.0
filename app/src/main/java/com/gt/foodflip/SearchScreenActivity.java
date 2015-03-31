@@ -65,7 +65,7 @@ public class SearchScreenActivity extends Activity {
      */
     public void getFoodEntries() {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://192.168.1.6/foodflip/getentries.php");
+        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/getentries.php");
         try {
             HttpResponse response = httpclient.execute(httppost);
             String result = EntityUtils.toString(response.getEntity());

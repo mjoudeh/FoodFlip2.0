@@ -134,7 +134,7 @@ public class EntryScreenActivity extends Activity {
     public ArrayList<String> getEntryComments() {
         ArrayList<String> comments = new ArrayList<>();
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://192.168.1.6/foodflip/getentrycomments.php");
+        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/getentrycomments.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
@@ -170,7 +170,7 @@ public class EntryScreenActivity extends Activity {
             return;
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://192.168.1.6/foodflip/addentrycomment.php");
+        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/addentrycomment.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
