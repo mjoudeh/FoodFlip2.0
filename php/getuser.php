@@ -1,11 +1,11 @@
 <?php
     include_once 'ffdb_functions.php';
-	if(isset($_POST["id"]) && !empty($_POST["id"])) {
+	if(isset($_POST["user_id"]) && !empty($_POST["user_id"])) {
 		$ffdb = new FFDB_Functions();
-		$user = $ffdb->getUser($_POST["id"]);
+		$user = $ffdb->getUser($_POST["user_id"]);
 		$a = array();
 		if ($user != false && $row = mysql_fetch_array($user)) {
-			$a["id"] = $row["id"];
+			$a["user_id"] = $row["user_id"];
 			$a["karma"] = $row["karma"];
 			echo json_encode($a);
 		} else { ?>

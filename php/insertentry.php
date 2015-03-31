@@ -4,7 +4,7 @@ include_once './ffdb_functions.php';
 if(isset($_POST["Building"]) && !empty($_POST["Building"])
 	&& isset($_POST["Location"]) && !empty($_POST["Location"])
 	&& isset($_POST["FoodCategory"]) && !empty($_POST["FoodCategory"])
-	&& isset ($_POST["FoodType"]) && !empty($_POST["FoodType"])){
+	&& isset ($_POST["FoodType"]) && !empty($_POST["FoodType"]) && isset($_POST["user_id"])){
 	$ffdb = new FFDB_Functions(); 
 	//Store User into MySQL DB
 	$building = $_POST["Building"];
