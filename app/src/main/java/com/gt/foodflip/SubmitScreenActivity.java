@@ -8,12 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 /**
  * Submit Screen Activity creates a layout using the activity_search xml and allows the user
@@ -35,6 +30,7 @@ public class SubmitScreenActivity extends Activity {
     EditText text_description;
     EditText text_location;
     private AutoCompleteTextView buildingsList;
+    FFDBController ffdbController = new FFDBController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,43 +117,16 @@ public class SubmitScreenActivity extends Activity {
             if (!validateInput())
                 return;
 
+            String building = buildingsList.getText().toString();
+            String location = text_location.getText().toString();
             String category = getCategory();
             String types = getTypes();
+            String description = text_description.getText().toString();
 
-            AsyncHttpClient client = new AsyncHttpClient();
+            ffdbController.submitFood(building, location, category, types, description);
 
-            RequestParams params = new RequestParams();
-
-            params.put("Building", buildingsList.getText().toString());
-            params.put("Location", text_location.getText().toString());
-            params.put("FoodCategory", category);
-            params.put("FoodType", types);
-            params.put("FoodDescription", text_description.getText().toString());
-
-            client.post("http://10.0.0.10/foodflip/insertentry.php", params,
-                    new AsyncHttpResponseHandler() {
-                @Override
-                public void onSuccess(String response) {
-                    System.out.println(response);
-                }
-                // When error occured
-                @Override
-                public void onFailure(int statusCode, Throwable error, String content) {
-                    if (statusCode == 404)
-                        Toast.makeText(getApplicationContext(), "Requested resource not found",
-                                Toast.LENGTH_LONG).show();
-                    else if (statusCode == 500)
-                        Toast.makeText(getApplicationContext(),
-                                "Something went wrong at server end", Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured!" +
-                                        " [Most common Error: Device might not be connected" +
-                                        " to Internet]",
-                                Toast.LENGTH_LONG).show();
-                }
-            });
-           Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
-           startActivity(mainScreen);
+            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainScreen);
         }
     };
 

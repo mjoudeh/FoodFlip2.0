@@ -13,30 +13,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONTokener;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * EntryScreenActivity populates the entry_view xml with data passed in from SearchScreenActivity.
  */
 public class EntryScreenActivity extends Activity {
     private int entryId;
+    FFDBController ffdbController = new FFDBController();
 
     Button entry_view_submit_button;
     Button entry_view_cancel_button;
@@ -140,34 +124,7 @@ public class EntryScreenActivity extends Activity {
      * @return comments - the ArrayList of comments.
      */
     public ArrayList<String> getEntryComments() {
-        ArrayList<String> comments = new ArrayList<>();
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/getentrycomments.php");
-
-        try {
-            List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("id", Integer.toString(entryId)));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response = httpclient.execute(httppost);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity()
-                    .getContent(), "UTF-8"));
-            StringBuilder builder = new StringBuilder();
-            for (String line = null; (line = reader.readLine()) != null;) {
-                builder.append(line).append("\n");
-            }
-            JSONTokener tokener = new JSONTokener(builder.toString());
-            JSONArray commentsArray = new JSONArray(tokener);
-            for (int i = 0; i < commentsArray.length(); i++)
-                comments.add(commentsArray.getJSONObject(i).getString("comment"));
-        } catch (ClientProtocolException e) {
-            System.out.println("ClientProtocolException in getEntryComments: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IOException in getEntryComments: " + e.getMessage());
-        } catch (JSONException e) {
-            System.out.println("JSONException in getEntryComments: " + e.getMessage());
-        }
-
-        return comments;
+        return ffdbController.getEntryComments(entryId);
     }
 
     public void addAComment() {
@@ -177,23 +134,10 @@ public class EntryScreenActivity extends Activity {
                 comment_edit_text.getText().toString().equals("Add a comment."))
             return;
 
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/addentrycomment.php");
+        String comment = comment_edit_text.getText().toString();
 
-        try {
-            List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("id", Integer.toString(entryId)));
-            nameValuePairs.add(new BasicNameValuePair("comment",
-                    comment_edit_text.getText().toString()));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            ResponseHandler<String> responseHandler=new BasicResponseHandler();
-            String responseBody = httpclient.execute(httppost, responseHandler);
-            System.out.println("response for comment insert: " + responseBody);
-        } catch (ClientProtocolException e) {
-            System.out.println("ClientProtocolException in addAComment: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IOException in addAComment: " + e.getMessage());
-        }
+        ffdbController.addAComment(entryId, comment);
+
         Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
         startActivity(searchScreen);
     }
