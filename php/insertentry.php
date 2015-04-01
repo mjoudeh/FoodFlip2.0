@@ -4,7 +4,7 @@ include_once './ffdb_functions.php';
 if(isset($_POST["Building"]) && !empty($_POST["Building"])
 	&& isset($_POST["Location"]) && !empty($_POST["Location"])
 	&& isset($_POST["FoodCategory"]) && !empty($_POST["FoodCategory"])
-	&& isset ($_POST["FoodType"]) && !empty($_POST["FoodType"]) && isset($_POST["user_id"])){
+	&& isset ($_POST["FoodType"]) && !empty($_POST["FoodType"]) ){
 	$ffdb = new FFDB_Functions(); 
 	//Store User into MySQL DB
 	$building = $_POST["Building"];
@@ -12,6 +12,7 @@ if(isset($_POST["Building"]) && !empty($_POST["Building"])
 	$foodCategory = $_POST["FoodCategory"];
 	$foodType = $_POST["FoodType"];
 	$foodDescription = $_POST["FoodDescription"];
+	//$user_id = $_POST["user_id"];
 	$res = $ffdb->storeEntry($building, $location, $foodCategory, $foodType, $foodDescription);
 	//Based on insertion, create JSON response
 	if($res) { ?>

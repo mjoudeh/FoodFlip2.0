@@ -73,6 +73,7 @@ public class EntryScreenActivity extends Activity {
 
         back_button_entry_view.setOnClickListener(searchScreen);
         entry_view_submit_button.setOnClickListener(submitComment);
+        entry_view_cancel_button.setOnClickListener(submitCancel);
 
         setEntryViewValues();
         new PopulateEntryComments().execute();
@@ -125,6 +126,13 @@ public class EntryScreenActivity extends Activity {
         }
     };
 
+    View.OnClickListener submitCancel = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
+            startActivity(searchScreen);
+        }
+    };
+
     /**
      * This gets all comments given a food entries id, stores them in an ArrayList, then returns
      * the ArrayList.
@@ -134,7 +142,7 @@ public class EntryScreenActivity extends Activity {
     public ArrayList<String> getEntryComments() {
         ArrayList<String> comments = new ArrayList<>();
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/getentrycomments.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/getentrycomments.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
@@ -170,7 +178,7 @@ public class EntryScreenActivity extends Activity {
             return;
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/addentrycomment.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/addentrycomment.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
@@ -186,6 +194,8 @@ public class EntryScreenActivity extends Activity {
         } catch (IOException e) {
             System.out.println("IOException in addAComment: " + e.getMessage());
         }
+        Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
+        startActivity(searchScreen);
     }
 
     private void showProgressDialog() {
