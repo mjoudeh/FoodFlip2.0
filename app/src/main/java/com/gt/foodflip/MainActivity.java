@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public boolean getUser(String deviceId) {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/getuser.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/getuser.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
@@ -140,6 +140,7 @@ public class MainActivity extends ActionBarActivity {
             HttpResponse response = httpclient.execute(httppost);
             String result = EntityUtils.toString(response.getEntity());
             System.out.println(result);
+
             JSONObject user = new JSONObject(result);
             currentUser.setId(user.getString("user_id"));
             currentUser.setKarma(user.getString("karma"));
@@ -161,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public void insertUser(String deviceId) {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.60.118/foodflip/insertuser.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/insertuser.php");
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));

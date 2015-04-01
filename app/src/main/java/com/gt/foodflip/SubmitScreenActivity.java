@@ -134,7 +134,7 @@ public class SubmitScreenActivity extends Activity {
             params.put("FoodType", types);
             params.put("FoodDescription", text_description.getText().toString());
 
-            client.post("http://143.215.60.118/foodflip/insertentry.php", params,
+            client.post("http://10.0.0.10/foodflip/insertentry.php", params,
                     new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
@@ -156,8 +156,8 @@ public class SubmitScreenActivity extends Activity {
                                 Toast.LENGTH_LONG).show();
                 }
             });
-            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(mainScreen);
+           Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+           startActivity(mainScreen);
         }
     };
 
