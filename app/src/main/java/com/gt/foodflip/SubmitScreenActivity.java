@@ -1,7 +1,9 @@
 package com.gt.foodflip;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,6 +33,8 @@ public class SubmitScreenActivity extends Activity {
     EditText text_location;
     private AutoCompleteTextView buildingsList;
     FFDBController ffdbController = new FFDBController();
+    SharedPreferences sharedPreferences;
+    public static final String MyPREFERENCES = "MyPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,8 @@ public class SubmitScreenActivity extends Activity {
         food_truck_toggle_button.setOnClickListener(toggleCategory);
         delivery_toggle_button.setOnClickListener(toggleCategory);
         other_toggle_button.setOnClickListener(toggleCategory);
+
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         buildingsList.setAdapter(adapter);
     }
@@ -117,13 +123,14 @@ public class SubmitScreenActivity extends Activity {
             if (!validateInput())
                 return;
 
+            String deviceId = sharedPreferences.getString("id", "-1");
             String building = buildingsList.getText().toString();
             String location = text_location.getText().toString();
             String category = getCategory();
             String types = getTypes();
             String description = text_description.getText().toString();
 
-            ffdbController.submitFood(building, location, category, types, description);
+            ffdbController.submitFood(deviceId, building, location, category, types, description);
 
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainScreen);

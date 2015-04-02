@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -22,26 +26,45 @@ public class SearchScreenActivity extends Activity {
     ImageButton back_button_search_form;
     ImageButton account_button_search_form;
     ListView listView;
-    ArrayList<FoodEntry> httpResponse;
+    ArrayList<FoodEntry> foodEntries;
     CustomAdapter customAdapter;
     public SearchScreenActivity customListView;
     ProgressDialog pDialog;
     SharedPreferences sharedPreferences;
     public static final String MyPREFERENCES = "MyPrefs";
     FFDBController ffdbController = new FFDBController();
+    String fileName = "FoodEntriesFile";
+    FileOutputStream fileOutputStream;
+    FileInputStream fileInputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         customListView = this;
-        httpResponse = new ArrayList<>();
+        foodEntries = new ArrayList<>();
+
 
         listView = (ListView) findViewById(R.id.entries_list_view);
         back_button_search_form = (ImageButton) findViewById(R.id.back_button_search_form);
         account_button_search_form = (ImageButton) findViewById(R.id.account_button_search_form);
 
         back_button_search_form.setOnClickListener(mainScreen);
+
+        try {
+            fileInputStream = openFileInput(fileName);
+            int b = 1;
+            while(b != -1) {
+                b = fileInputStream.read();
+                System.out.println("fileInputStream: " + b);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found exception in SSA: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("IOException in fileInputStream.read(): " + e.getMessage());
+        }
+
+
         new PopulateFoodEntries().execute();
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -54,7 +77,27 @@ public class SearchScreenActivity extends Activity {
      * the php script getentries, which returns all food entries in the database.
      */
     public void getFoodEntries() {
-        httpResponse = ffdbController.getFoodEntries();
+        foodEntries = ffdbController.getFoodEntries();
+        storeFoodEntries();
+    }
+
+    public void storeFoodEntries() {
+        try {
+            fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException for output in SSA: " + e.getMessage());
+        }
+
+        if (fileOutputStream == null)
+            return;
+
+        for (int i = 0; i < foodEntries.size(); i++) {
+            try {
+                fileOutputStream.write(Integer.toString(foodEntries.get(i).getId()).getBytes());
+            } catch (IOException e) {
+                System.out.println("IOException in storeFoodEntries: " + e.getMessage());
+            }
+        }
     }
 
     /*
@@ -75,7 +118,7 @@ public class SearchScreenActivity extends Activity {
     */
     public void onItemClick(int position)
     {
-        final FoodEntry entry = httpResponse.get(position);
+        final FoodEntry entry = foodEntries.get(position);
 
         Intent entryScreen = new Intent(getApplicationContext(), EntryScreenActivity.class);
 
@@ -131,7 +174,7 @@ public class SearchScreenActivity extends Activity {
                 @Override
                 public void run() {
                     Resources resources = getResources();
-                    customAdapter = new CustomAdapter(customListView, httpResponse, resources,
+                    customAdapter = new CustomAdapter(customListView, foodEntries, resources,
                             SearchScreenActivity.this);
                     listView.setAdapter(customAdapter);
                 }
