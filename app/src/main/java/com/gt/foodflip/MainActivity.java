@@ -13,20 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -40,6 +26,8 @@ public class MainActivity extends ActionBarActivity {
     public static final String MyPREFERENCES = "MyPrefs";
 
     SharedPreferences sharedPreferences;
+
+    FFDBController ffdbController = new FFDBController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,28 +118,7 @@ public class MainActivity extends ActionBarActivity {
      * @return true - if the user was retrieved successfully, false otherwise.
      */
     public boolean getUser(String deviceId) {
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/getuser.php");
-
-        try {
-            List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response = httpclient.execute(httppost);
-            String result = EntityUtils.toString(response.getEntity());
-            System.out.println(result);
-
-            JSONObject user = new JSONObject(result);
-            currentUser.setId(user.getString("user_id"));
-            currentUser.setKarma(user.getString("karma"));
-        } catch (ClientProtocolException e) {
-            System.out.println("ClientProtocolException in getUser: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IOException in getUser: " + e.getMessage());
-        } catch (JSONException e) {
-            System.out.println("JSONException in getUser: " + e.getMessage());
-        }
-
+        currentUser = ffdbController.getUser(deviceId);
         return currentUser.isSet();
     }
 
@@ -161,22 +128,7 @@ public class MainActivity extends ActionBarActivity {
      * @param deviceId - the unique id of the user.
      */
     public void insertUser(String deviceId) {
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/insertuser.php");
-        try {
-            List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response= httpclient.execute(httppost);
-            String result = EntityUtils.toString(response.getEntity());
-            System.out.println(result);
-            currentUser.setId(deviceId);
-            currentUser.setKarma("0");
-        } catch (ClientProtocolException e) {
-            System.out.println("ClientProtocolException in insertUser: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IOException in insertUser: " + e.getMessage());
-        }
+        currentUser = ffdbController.insertUser(deviceId);
     }
 
     private void showProgressDialog() {
