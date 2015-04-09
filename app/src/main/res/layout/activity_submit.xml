@@ -36,10 +36,11 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/rounded_edittext"
         android:padding="15dp"
-        android:layout_alignLeft="@+id/text_category"
-        android:layout_alignStart="@+id/text_category"
-        android:layout_alignRight="@+id/text_category"
-        android:layout_alignEnd="@+id/text_category" />
+        android:layout_alignRight="@+id/account_button_submit_form"
+        android:layout_alignEnd="@+id/account_button_submit_form"
+        android:layout_gravity="center"
+        android:layout_alignLeft="@+id/back_button_submit_form"
+        android:layout_alignStart="@+id/back_button_submit_form" />
 
 
     <EditText
@@ -47,13 +48,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_location"
         android:background="@drawable/rounded_edittext"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:padding="15dp"
         android:hint="Location (room #, area, etc.)"
         android:layout_below="@+id/autocompletetext_building"
-        android:layout_alignLeft="@+id/autocompletetext_building"
-        android:layout_alignStart="@+id/autocompletetext_building"
-        android:layout_alignRight="@+id/text_category"
-        android:layout_alignEnd="@+id/text_category" />
+        android:layout_alignRight="@+id/autocompletetext_building"
+        android:layout_alignEnd="@+id/autocompletetext_building"
+        android:layout_gravity="center"
+        android:layout_alignLeft="@+id/text_type"
+        android:layout_alignStart="@+id/text_type" />
 
     <EditText
 		android:layout_width="fill_parent"
@@ -61,6 +65,8 @@
         android:padding="15dip"
 		android:hint="Description (optional)"
 		android:singleLine="false"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
 		android:lines="5"
 		android:background="@drawable/rounded_edittext"
         android:id="@+id/text_description"
@@ -69,9 +75,8 @@
         android:layout_above="@+id/submit_button_submit_form"
         android:layout_alignLeft="@+id/submit_button_submit_form"
         android:layout_alignStart="@+id/submit_button_submit_form"
-        android:layout_alignRight="@+id/account_button_submit_form"
-        android:layout_alignEnd="@+id/account_button_submit_form"
-        android:layout_below="@+id/text_type" />
+        android:layout_alignRight="@+id/submit_button_submit_form"
+        android:layout_alignEnd="@+id/submit_button_submit_form" />
 
     <ImageButton
         android:id="@+id/back_button_submit_form"
@@ -107,83 +112,24 @@
         android:background="@color/ff_blue"
         android:layout_margin="10dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Category (choose one)"
-        android:id="@+id/text_category"
-        android:height="85dp"
-        android:background="@drawable/rounded_edittext"
-        android:padding="15dip"
-        android:gravity="top|center"
-        android:textStyle="italic"
-        android:textSize="18dp"
-        android:layout_below="@+id/text_location"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_alignRight="@+id/text_type"
-        android:layout_alignEnd="@+id/text_type"
-        android:layout_alignLeft="@+id/text_type"
-        android:layout_alignStart="@+id/text_type" />
-
-    <ToggleButton
-        android:layout_width="95dp"
-        android:layout_height="wrap_content"
-        android:text="Food Truck"
-        android:textColor="@drawable/text_color_category"
-        android:id="@+id/food_truck_toggle_button"
-        android:layout_alignBottom="@+id/text_category"
-        android:layout_alignLeft="@+id/text_category"
-        android:layout_alignStart="@+id/text_category"
-        android:background="@null"
-        android:textOff="Food Truck"
-        android:textOn="Food Truck"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp" />
-
-    <ToggleButton
-        android:layout_width="95dp"
-        android:layout_height="wrap_content"
-        android:text="Delivery"
-        android:textColor="@drawable/text_color_category"
-        android:id="@+id/delivery_toggle_button"
-        android:layout_alignBottom="@+id/text_category"
-        android:layout_toRightOf="@+id/food_truck_toggle_button"
-        android:layout_toEndOf="@+id/food_truck_toggle_button"
-        android:background="@null"
-        android:textOff="Delivery"
-        android:textOn="Delivery"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="0dp" />
-
-    <ToggleButton
-        android:layout_width="95dp"
-        android:layout_height="wrap_content"
-        android:text="Other"
-        android:textColor="@drawable/text_color_category"
-        android:id="@+id/other_toggle_button"
-        android:layout_alignBottom="@+id/text_category"
-        android:layout_toRightOf="@+id/delivery_toggle_button"
-        android:layout_toEndOf="@+id/delivery_toggle_button"
-        android:background="@null"
-        android:textOff="Other"
-        android:textOn="Other"
-        android:layout_marginRight="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="130dp"
+        android:layout_height="250dp"
         android:text="Type"
         android:id="@+id/text_type"
         android:background="@drawable/rounded_edittext"
-        android:layout_below="@+id/text_category"
-        android:layout_alignLeft="@+id/text_description"
-        android:layout_alignRight="@+id/text_description"
-        android:layout_marginBottom="5dp"
         android:gravity="top|center"
         android:textStyle="italic"
         android:textSize="18dp"
-        android:padding="15dp" />
+        android:padding="15dp"
+        android:layout_alignRight="@+id/account_button_submit_form"
+        android:layout_alignEnd="@+id/account_button_submit_form"
+        android:layout_alignLeft="@+id/text_description"
+        android:layout_alignStart="@+id/text_description"
+        android:layout_below="@+id/text_location"
+        android:layout_above="@+id/text_description" />
+
 
     <ToggleButton
         android:layout_width="100dp"
@@ -198,7 +144,9 @@
         android:background="@null"
         android:textOff="Pizza"
         android:textOn="Pizza"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:checked="false" />
+
 
     <ToggleButton
         android:layout_width="100dp"
@@ -207,14 +155,14 @@
         android:textColor="@drawable/text_color_type"
         android:id="@+id/wings_toggle_button"
         android:layout_alignTop="@+id/pizza_toggle_button"
-        android:layout_toRightOf="@+id/pizza_toggle_button"
         android:layout_toEndOf="@+id/pizza_toggle_button"
         android:background="@null"
         android:textOff="Wings"
-        android:textOn="Wings" />
+        android:textOn="Wings"
+        android:checked="false" />
 
     <ToggleButton
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Baked Goods"
         android:textColor="@drawable/text_color_type"
@@ -223,10 +171,11 @@
         android:layout_toRightOf="@+id/wings_toggle_button"
         android:background="@null"
         android:textOff="Baked Goods"
-        android:textOn="Baked Goods" />
+        android:textOn="Baked Goods"
+        android:checked="false" />
 
     <ToggleButton
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Sandwiches"
         android:textColor="@drawable/text_color_type"
@@ -237,39 +186,52 @@
         android:background="@null"
         android:textOff="Sandwiches"
         android:textOn="Sandwiches"
-        android:layout_toLeftOf="@+id/drinks_toggle_button"
-        android:layout_toStartOf="@+id/drinks_toggle_button"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:checked="false" />
 
     <ToggleButton
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Drinks"
         android:textColor="@drawable/text_color_type"
         android:id="@+id/drinks_toggle_button"
         android:layout_below="@+id/wings_toggle_button"
-        android:layout_alignLeft="@+id/wings_toggle_button"
-        android:layout_alignStart="@+id/wings_toggle_button"
+        android:layout_alignTop="@+id/sandwiches_toggle_button"
+        android:layout_toEndOf="@+id/sandwiches_toggle_button"
         android:background="@null"
         android:textOff="Drinks"
-        android:layout_toLeftOf="@+id/other_type_toggle_button"
-        android:layout_toStartOf="@+id/other_type_toggle_button"
-        android:textOn="Drinks" />
+        android:textOn="Drinks"
+        android:checked="false" />
 
     <ToggleButton
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Other"
         android:textColor="@drawable/text_color_type"
         android:id="@+id/other_type_toggle_button"
         android:layout_below="@+id/baked_goods_toggle_button"
-        android:layout_alignLeft="@+id/baked_goods_toggle_button"
-        android:layout_alignStart="@+id/baked_goods_toggle_button"
+        android:layout_alignTop="@+id/drinks_toggle_button"
+        android:layout_toEndOf="@+id/drinks_toggle_button"
         android:background="@null"
         android:textOff="Other"
         android:textOn="Other"
-        android:layout_alignRight="@+id/baked_goods_toggle_button"
-        android:layout_alignEnd="@+id/baked_goods_toggle_button" />
+        android:checked="false"  />
+
+    <ToggleButton
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Food Truck"
+        android:textColor="@drawable/text_color_type"
+        android:id="@+id/food_truck_toggle_button"
+        android:layout_below="@+id/sandwiches_toggle_button"
+        android:layout_alignLeft="@+id/text_type"
+        android:layout_alignStart="@+id/text_type"
+        android:background="@null"
+        android:textOff="Food Truck"
+        android:textOn="Food Truck"
+        android:layout_marginLeft="20dp"
+        android:checked="false"
+        />
 
 
 </RelativeLayout>

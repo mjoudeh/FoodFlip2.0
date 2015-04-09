@@ -61,7 +61,6 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
     public static class ViewHolder {
         public TextView building;
         public TextView location;
-        public TextView foodCategory;
         public TextView foodType;
         public TextView votes;
         public TextView foodDescription;
@@ -83,7 +82,6 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             holder = new ViewHolder();
             holder.building = (TextView) view.findViewById(R.id.building);
             holder.location = (TextView) view.findViewById(R.id.location);
-            holder.foodCategory = (TextView) view.findViewById(R.id.food_category);
             holder.foodType = (TextView) view.findViewById(R.id.food_type);
             holder.votes = (TextView) view.findViewById(R.id.votes);
             //holder.foodDescription = (TextView) vi.findViewById(R.id.food_description);
@@ -104,7 +102,6 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             /*  Set entry values in holder elements */
             holder.building.setText(tempValues.getBuilding());
             holder.location.setText(tempValues.getLocation());
-            holder.foodCategory.setText(tempValues.getCategory());
             holder.foodType.setText(tempValues.getType());
             holder.votes.setText(Integer.toString(tempValues.getVotes()));
             holder.downvote = (ImageButton) view.findViewById(R.id.downvote);
