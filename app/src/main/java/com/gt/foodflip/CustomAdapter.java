@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.gt.foodflip.R.id.*;
 
 /**
  * CustomAdapter class for the purpose of giving all food entries in the search screen
@@ -83,11 +82,11 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
 
             /* View Holder Object to contain tabitem.xml file elements */
             holder = new ViewHolder();
-            holder.building = (TextView) view.findViewById(building);
-            holder.location = (TextView) view.findViewById(location);
-            holder.foodType = (TextView) view.findViewById(food_type);
-            holder.price = (TextView) view.findViewById(price);
-            holder.votes = (TextView) view.findViewById(votes);
+            holder.building = (TextView) view.findViewById(R.id.building);
+            holder.location = (TextView) view.findViewById(R.id.location);
+            holder.foodType = (TextView) view.findViewById(R.id.food_type);
+            holder.price = (TextView) view.findViewById(R.id.price);
+            holder.votes = (TextView) view.findViewById(R.id.votes);
             //holder.foodDescription = (TextView) vi.findViewById(R.id.food_description);
 
             /*  Set holder with LayoutInflater */
@@ -109,8 +108,8 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             holder.foodType.setText(tempValues.getType());
             holder.price.setText(tempValues.getPrice());
             holder.votes.setText(Integer.toString(tempValues.getVotes()));
-            holder.downvote = (ImageButton) view.findViewById(downvote);
-            holder.upvote = (ImageButton) view.findViewById(upvote);
+            holder.downvote = (ImageButton) view.findViewById(R.id.downvote);
+            holder.upvote = (ImageButton) view.findViewById(R.id.upvote);
             //holder.foodDescription.setText(tempValues.getDescription());
 
             /* Set Item Click Listener for LayoutInflater for each row */
