@@ -7,6 +7,7 @@ public class FoodEntry {
     private String building = "";
     private String location = "";
     private String type = "";
+    private String price ="";
     private String description = "";
     private int votes;
     private int id;
@@ -25,6 +26,10 @@ public class FoodEntry {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public void setDescription(String description) {
@@ -52,6 +57,10 @@ public class FoodEntry {
 
     public String getType() {
         return this.type;
+    }
+
+    public String getPrice() {
+        return this.price;
     }
 
     public String getDescription() {

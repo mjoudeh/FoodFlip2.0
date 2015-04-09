@@ -30,6 +30,7 @@ public class SubmitScreenActivity extends Activity {
     ToggleButton food_truck_toggle_button;
     EditText text_description;
     EditText text_location;
+    EditText text_price;
     private AutoCompleteTextView buildingsList;
     FFDBController ffdbController = new FFDBController();
     SharedPreferences sharedPreferences;
@@ -46,6 +47,7 @@ public class SubmitScreenActivity extends Activity {
 
         buildingsList = (AutoCompleteTextView) findViewById(R.id.autocompletetext_building);
         text_location = (EditText) findViewById(R.id.text_location);
+        text_price = (EditText) findViewById(R.id.text_price);
         back_button_submit_form = (ImageButton) findViewById(R.id.back_button_submit_form);
         submit_button_submit_form = (ImageButton) findViewById(R.id.submit_button_submit_form);
         account_button_submit_form = (ImageButton) findViewById(R.id.account_button_submit_form);
@@ -93,10 +95,11 @@ public class SubmitScreenActivity extends Activity {
             String deviceId = sharedPreferences.getString("id", "-1");
             String building = buildingsList.getText().toString();
             String location = text_location.getText().toString();
-                     String types = getTypes();
+            String types = getTypes();
+            String price = text_price.getText().toString();
             String description = text_description.getText().toString();
 
-            ffdbController.submitFood(deviceId, building, location, types, description);
+            ffdbController.submitFood(deviceId, building, location, types, price, description);
 
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainScreen);
@@ -146,6 +149,12 @@ public class SubmitScreenActivity extends Activity {
         return !text_location.getText().toString().equals("Location (room #, area, etc.)") &&
                 text_location.getText().toString() != null &&
                 !text_location.getText().toString().equals("");
+    }
+
+    public boolean validatePriceInput() {
+        return !text_price.getText().toString().equals("Price") &&
+                text_price.getText().toString() != null &&
+                !text_price.getText().toString().equals("");
     }
 
 

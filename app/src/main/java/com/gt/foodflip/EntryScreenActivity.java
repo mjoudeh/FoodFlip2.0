@@ -33,6 +33,7 @@ public class EntryScreenActivity extends Activity {
     TextView building;
     TextView location;
     TextView type;
+    TextView price;
     TextView description;
     TextView votes;
 
@@ -50,6 +51,7 @@ public class EntryScreenActivity extends Activity {
         building = (TextView) findViewById(R.id.building);
         location = (TextView) findViewById(R.id.location);
         type = (TextView) findViewById(R.id.type);
+        price = (TextView) findViewById(R.id.price);
         description = (TextView) findViewById(R.id.description);
         votes = (TextView) findViewById(R.id.votes);
 
@@ -69,6 +71,7 @@ public class EntryScreenActivity extends Activity {
         String location_;
         String type_;
         String description_;
+        String price_;
         int votes_;
 
         Bundle entry = getIntent().getExtras();
@@ -77,6 +80,7 @@ public class EntryScreenActivity extends Activity {
             location_ = entry.getString("location");
             type_ = entry.getString("type");
             description_ = entry.getString("description");
+            price_ = entry.getString("price");
             votes_ = entry.getInt("votes");
             entryId = entry.getInt("id");
         } else
@@ -85,6 +89,7 @@ public class EntryScreenActivity extends Activity {
         building.setText(building_);
         location.setText(location_);
         type.setText(type_);
+        price.setText(price_);
         description.setText(description_);
         votes.setText(Integer.toString(votes_));
     }

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FFDBController extends Activity {
-    public void submitFood(String deviceId, String building, String location, String types,
+    public void submitFood(String deviceId, String building, String location, String types, String price,
                            String description) {
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -39,6 +39,7 @@ public class FFDBController extends Activity {
         params.put("Building", building);
         params.put("Location", location);
         params.put("FoodType", types);
+        params.put ("price", price);
         params.put("FoodDescription", description);
 
         client.post("http://10.0.0.10/foodflip/insertentry.php", params,
@@ -79,8 +80,8 @@ public class FFDBController extends Activity {
                 JSONObject obj = jsonArray.getJSONObject(i);
                 entry.setBuilding(obj.getString("building"));
                 entry.setLocation(obj.getString("location"));
-
                 entry.setType(obj.getString("foodType"));
+                entry.setPrice(obj.getString("price"));
                 entry.setDescription(obj.getString("foodDescription"));
                 entry.setVotes(Integer.parseInt(obj.getString("votes")));
                 entry.setId(Integer.parseInt(obj.getString("id")));
