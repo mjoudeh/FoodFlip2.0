@@ -6,7 +6,6 @@ package com.gt.foodflip;
 public class FoodEntry {
     private String building = "";
     private String location = "";
-    private String category = "";
     private String type = "";
     private String description = "";
     private int votes;
@@ -23,10 +22,6 @@ public class FoodEntry {
         this.location = location;
     }
 
-    public void setCategory(String category)
-    {
-        this.category = category;
-    }
 
     public void setType(String type) {
         this.type = type;
@@ -53,11 +48,6 @@ public class FoodEntry {
     public String getLocation()
     {
         return this.location;
-    }
-
-    public String getCategory()
-    {
-        return this.category;
     }
 
     public String getType() {

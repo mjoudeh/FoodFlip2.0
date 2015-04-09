@@ -20,15 +20,14 @@ public class SubmitScreenActivity extends Activity {
     ImageButton back_button_submit_form;
     ImageButton submit_button_submit_form;
     ImageButton account_button_submit_form;
-    ToggleButton food_truck_toggle_button;
-    ToggleButton delivery_toggle_button;
-    ToggleButton other_toggle_button;
+
     ToggleButton pizza_toggle_button;
     ToggleButton wings_toggle_button;
     ToggleButton baked_goods_toggle_button;
     ToggleButton sandwiches_toggle_button;
     ToggleButton drinks_toggle_button;
     ToggleButton other_type_toggle_button;
+    ToggleButton food_truck_toggle_button;
     EditText text_description;
     EditText text_location;
     private AutoCompleteTextView buildingsList;
@@ -50,22 +49,20 @@ public class SubmitScreenActivity extends Activity {
         back_button_submit_form = (ImageButton) findViewById(R.id.back_button_submit_form);
         submit_button_submit_form = (ImageButton) findViewById(R.id.submit_button_submit_form);
         account_button_submit_form = (ImageButton) findViewById(R.id.account_button_submit_form);
-        food_truck_toggle_button = (ToggleButton) findViewById(R.id.food_truck_toggle_button);
-        delivery_toggle_button = (ToggleButton) findViewById(R.id.delivery_toggle_button);
-        other_toggle_button = (ToggleButton) findViewById(R.id.other_toggle_button);
+
+
         pizza_toggle_button = (ToggleButton) findViewById(R.id.pizza_toggle_button);
         wings_toggle_button = (ToggleButton) findViewById(R.id.wings_toggle_button);
         baked_goods_toggle_button = (ToggleButton) findViewById(R.id.baked_goods_toggle_button);
         sandwiches_toggle_button = (ToggleButton) findViewById(R.id.sandwiches_toggle_button);
         drinks_toggle_button = (ToggleButton) findViewById(R.id.drinks_toggle_button);
         other_type_toggle_button = (ToggleButton) findViewById(R.id.other_type_toggle_button);
+        food_truck_toggle_button = (ToggleButton) findViewById(R.id.food_truck_toggle_button);
         text_description = (EditText) findViewById(R.id.text_description);
 
         back_button_submit_form.setOnClickListener(mainScreen);
         submit_button_submit_form.setOnClickListener(submitFood);
-        food_truck_toggle_button.setOnClickListener(toggleCategory);
-        delivery_toggle_button.setOnClickListener(toggleCategory);
-        other_toggle_button.setOnClickListener(toggleCategory);
+
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
@@ -84,36 +81,6 @@ public class SubmitScreenActivity extends Activity {
     };
 
     /**
-     * the toggleCategory onClickListener is called whenever a category is clicked by the user.
-     * It ensures that only one category is selected at a time.
-     */
-    View.OnClickListener toggleCategory = new View.OnClickListener() {
-        public void onClick(View v) {
-            ToggleButton t = (ToggleButton) v;
-
-            if (!t.isChecked())
-                return;
-
-            switch(t.getText().toString()) {
-                case "Food Truck":
-                    delivery_toggle_button.setChecked(false);
-                    other_toggle_button.setChecked(false);
-                    break;
-                case "Delivery":
-                    food_truck_toggle_button.setChecked(false);
-                    other_toggle_button.setChecked(false);
-                    break;
-                case "Other":
-                    food_truck_toggle_button.setChecked(false);
-                    delivery_toggle_button.setChecked(false);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
-    /**
      * the submitFood onClickListener is called when the submit button is clicked. It is
      * responsible for actually inputting the food entry into the database by making an
      * http request to insertentry.php.
@@ -126,30 +93,16 @@ public class SubmitScreenActivity extends Activity {
             String deviceId = sharedPreferences.getString("id", "-1");
             String building = buildingsList.getText().toString();
             String location = text_location.getText().toString();
-            String category = getCategory();
-            String types = getTypes();
+                     String types = getTypes();
             String description = text_description.getText().toString();
 
-            ffdbController.submitFood(deviceId, building, location, category, types, description);
+            ffdbController.submitFood(deviceId, building, location, types, description);
 
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainScreen);
         }
     };
 
-    /**
-     * returns the current category that is selected.
-     *
-     * @return category - "Food Truck", "Delivery", "Other" - depending which is selected.
-     */
-    public String getCategory() {
-        if (food_truck_toggle_button.isChecked())
-            return "Food Truck";
-        else if (delivery_toggle_button.isChecked())
-            return "Delivery";
-        else
-            return "Other";
-    }
 
     /**
      * Gets all types of food that are checked. Uses a StringBuilder to concatenate all food types
@@ -166,6 +119,7 @@ public class SubmitScreenActivity extends Activity {
         if (sandwiches_toggle_button.isChecked()) stringBuilder.append("Sandwiches ");
         if (drinks_toggle_button.isChecked()) stringBuilder.append("Drinks ");
         if (other_type_toggle_button.isChecked()) stringBuilder.append("Other");
+        if (food_truck_toggle_button.isChecked()) stringBuilder.append("Food Truck");
 
         return stringBuilder.toString();
     }
@@ -179,7 +133,7 @@ public class SubmitScreenActivity extends Activity {
      */
     public boolean validateInput() {
         return validateBuildingsListInput() && validateLocationInput() &&
-                validateCategoryInput() && validateTypeInput();
+                validateTypeInput();
     }
 
     public boolean validateBuildingsListInput() {
@@ -194,11 +148,6 @@ public class SubmitScreenActivity extends Activity {
                 !text_location.getText().toString().equals("");
     }
 
-    public boolean validateCategoryInput() {
-        return food_truck_toggle_button.isChecked() ||
-                delivery_toggle_button.isChecked() ||
-                other_toggle_button.isChecked();
-    }
 
     public boolean validateTypeInput() {
         return pizza_toggle_button.isChecked() ||
@@ -206,6 +155,7 @@ public class SubmitScreenActivity extends Activity {
                 baked_goods_toggle_button.isChecked() ||
                 sandwiches_toggle_button.isChecked() ||
                 drinks_toggle_button.isChecked() ||
-                other_toggle_button.isChecked();
+                other_type_toggle_button.isChecked()||
+                food_truck_toggle_button.isChecked();
     }
 }

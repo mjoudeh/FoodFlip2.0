@@ -124,7 +124,6 @@ public class SearchScreenActivity extends Activity {
 
         entryScreen.putExtra("building", entry.getBuilding());
         entryScreen.putExtra("location", entry.getLocation());
-        entryScreen.putExtra("category", entry.getCategory());
         entryScreen.putExtra("type", entry.getType());
         entryScreen.putExtra("description", entry.getDescription());
         entryScreen.putExtra("votes", entry.getVotes());

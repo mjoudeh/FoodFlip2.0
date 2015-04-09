@@ -32,7 +32,6 @@ public class EntryScreenActivity extends Activity {
     ArrayAdapter arrayAdapter;
     TextView building;
     TextView location;
-    TextView category;
     TextView type;
     TextView description;
     TextView votes;
@@ -50,7 +49,6 @@ public class EntryScreenActivity extends Activity {
         comments = (ListView) findViewById(R.id.comments);
         building = (TextView) findViewById(R.id.building);
         location = (TextView) findViewById(R.id.location);
-        category = (TextView) findViewById(R.id.category);
         type = (TextView) findViewById(R.id.type);
         description = (TextView) findViewById(R.id.description);
         votes = (TextView) findViewById(R.id.votes);
@@ -69,7 +67,6 @@ public class EntryScreenActivity extends Activity {
     public void setEntryViewValues() {
         String building_;
         String location_;
-        String category_;
         String type_;
         String description_;
         int votes_;
@@ -78,7 +75,6 @@ public class EntryScreenActivity extends Activity {
         if (entry != null) {
             building_ = entry.getString("building");
             location_ = entry.getString("location");
-            category_ = entry.getString("category");
             type_ = entry.getString("type");
             description_ = entry.getString("description");
             votes_ = entry.getInt("votes");
@@ -88,7 +84,6 @@ public class EntryScreenActivity extends Activity {
 
         building.setText(building_);
         location.setText(location_);
-        category.setText(category_);
         type.setText(type_);
         description.setText(description_);
         votes.setText(Integer.toString(votes_));
