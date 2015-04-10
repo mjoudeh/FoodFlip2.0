@@ -40,6 +40,14 @@
                 <action android:name="android.intent.categoy.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AccountScreenActivity"
+            android:label="Food Flip" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.categoy.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
