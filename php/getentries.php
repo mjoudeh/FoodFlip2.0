@@ -9,8 +9,8 @@
 		while ($row = mysql_fetch_array($entries)) {		
 			$b["building"] = $row["Building"];
 			$b["location"] = $row["Location"];
-			$b["foodCategory"] = $row["FoodCategory"];
 			$b["foodType"] = $row["FoodType"];
+			$b["price"] = $row["price"];
 			$b["foodDescription"] = $row["FoodDescription"];
 			$b["votes"] = $row["Votes"];
 			$b["id"] = $row["id"];
