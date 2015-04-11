@@ -33,7 +33,7 @@
 	* id (int(255))
 	* comment (varchar(1000))
 
-9. In **FFDBController** change the *client.post* IP address to the address of your local machine.
+9. In **FFDBController** change the *IP_ADDRESS* IP address to the address of your local machine.
 10. Create a folder in xampp/htdocs named *foodflip* and copy the contents of the php folder to xampp/htdocs/foodflip.
 11. In XAMPP click on *Shell*.
 12. In the bash that opens up, type *mysql -u root -p*. When it asks for a password, just press ENTER.
