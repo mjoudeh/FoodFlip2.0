@@ -78,7 +78,7 @@ public class SearchScreenActivity extends Activity {
      */
     public void getFoodEntries() {
         foodEntries = ffdbController.getFoodEntries();
-        storeFoodEntries();
+        //storeFoodEntries();
     }
 
     public void storeFoodEntries() {
