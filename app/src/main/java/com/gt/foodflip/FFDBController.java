@@ -42,7 +42,7 @@ public class FFDBController extends Activity {
         params.put ("price", price);
         params.put("FoodDescription", description);
 
-        client.post("http://10.0.0.10/foodflip/insertentry.php", params,
+        client.post("http://10.0.0.18/foodflip/insertentry.php", params,
                 new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(String response) {
@@ -70,7 +70,7 @@ public class FFDBController extends Activity {
         ArrayList<FoodEntry> foodEntries = new ArrayList<>();
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/getentries.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.18/foodflip/getentries.php");
         try {
             HttpResponse response = httpclient.execute(httppost);
             String result = EntityUtils.toString(response.getEntity());
@@ -101,7 +101,7 @@ public class FFDBController extends Activity {
     public ArrayList<String> getEntryComments(int entryId) {
         ArrayList<String> comments = new ArrayList<>();
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/getentrycomments.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.18/foodflip/getentrycomments.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
@@ -130,7 +130,7 @@ public class FFDBController extends Activity {
 
     public void addAComment(int entryId, String comment) {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/addentrycomment.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.18/foodflip/addentrycomment.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
@@ -151,7 +151,7 @@ public class FFDBController extends Activity {
         User currentUser = new User();
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/getuser.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.18/foodflip/getuser.php");
 
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
@@ -164,6 +164,8 @@ public class FFDBController extends Activity {
             JSONObject user = new JSONObject(result);
             currentUser.setId(user.getString("user_id"));
             currentUser.setKarma(user.getString("karma"));
+            currentUser.setSubmissionsCount(user.getString("submissions"));
+            currentUser.setCommentsCount(user.getString("comments"));
         } catch (ClientProtocolException e) {
             System.out.println("ClientProtocolException in getUser: " + e.getMessage());
         } catch (IOException e) {
@@ -179,7 +181,7 @@ public class FFDBController extends Activity {
         User currentUser = new User();
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://10.0.0.10/foodflip/insertuser.php");
+        HttpPost httppost = new HttpPost("http://10.0.0.18/foodflip/insertuser.php");
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));

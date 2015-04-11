@@ -6,9 +6,8 @@ package com.gt.foodflip;
 public class User {
     private String user_id;
     private String karma;
-
-    public User() {
-    }
+    private String submissionsCount;
+    private String commentsCount;
 
     public String getId() {
         return this.user_id;
@@ -18,12 +17,28 @@ public class User {
         return this.karma;
     }
 
+    public String getSubmissionsCount() {
+        return this.submissionsCount;
+    }
+
+    public String getCommentsCount() {
+        return this.commentsCount;
+    }
+
     public void setId(String user_id) {
         this.user_id = user_id;
     }
 
     public void setKarma(String karma) {
         this.karma = karma;
+    }
+
+    public void setSubmissionsCount(String submissionsCount) {
+        this.submissionsCount = submissionsCount;
+    }
+
+    public void setCommentsCount(String commentsCount) {
+        this.commentsCount = commentsCount;
     }
 
     public boolean isSet() {
