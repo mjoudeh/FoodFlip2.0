@@ -7,6 +7,8 @@
 		if ($user != false && $row = mysql_fetch_array($user)) {
 			$a["user_id"] = $row["user_id"];
 			$a["karma"] = $row["karma"];
+			$a["comments"] = $row["comments"];
+			$a["submissions"] = $row["submissions"];
 			echo json_encode($a);
 		} else { ?>
 		 <div id="msg">user is false in getuser.php</div>
