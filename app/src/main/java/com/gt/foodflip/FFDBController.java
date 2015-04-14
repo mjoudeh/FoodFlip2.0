@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FFDBController extends Activity {
+    final static String IP_ADDRESS = "143.215.50.116";
+
     public void submitFood(String deviceId, String building, String location, String types, String price,
                            String description) {
         AsyncHttpClient client = new AsyncHttpClient();
@@ -42,7 +44,8 @@ public class FFDBController extends Activity {
         params.put ("price", price);
         params.put("FoodDescription", description);
 
-        client.post("http://143.215.50.116/foodflip/insertentry.php", params,
+
+        client.post("http://" + IP_ADDRESS + "/foodflip/insertentry.php", params,
                 new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(String response) {
@@ -70,7 +73,7 @@ public class FFDBController extends Activity {
         ArrayList<FoodEntry> foodEntries = new ArrayList<>();
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.50.116/foodflip/getentries.php");
+        HttpPost httppost = new HttpPost("http://" + IP_ADDRESS + "/foodflip/getentries.php");
         try {
             HttpResponse response = httpclient.execute(httppost);
             String result = EntityUtils.toString(response.getEntity());
@@ -101,8 +104,8 @@ public class FFDBController extends Activity {
     public ArrayList<String> getEntryComments(int entryId) {
         ArrayList<String> comments = new ArrayList<>();
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.50.116/foodflip/getentrycomments.php");
 
+        HttpPost httppost = new HttpPost("http://" + IP_ADDRESS + "/foodflip/getentrycomments.php");
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("id", Integer.toString(entryId)));
@@ -130,8 +133,8 @@ public class FFDBController extends Activity {
 
     public void addAComment(int entryId, String comment) {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.50.116/foodflip/addentrycomment.php");
 
+        HttpPost httppost = new HttpPost("http://" + IP_ADDRESS + "/foodflip/addentrycomment.php");
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("id", Integer.toString(entryId)));
@@ -151,8 +154,8 @@ public class FFDBController extends Activity {
         User currentUser = new User();
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http:/143.215.50.116/foodflip/getuser.php");
 
+        HttpPost httppost = new HttpPost("http://" + IP_ADDRESS + "/foodflip/getuser.php");
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));
@@ -164,6 +167,8 @@ public class FFDBController extends Activity {
             JSONObject user = new JSONObject(result);
             currentUser.setId(user.getString("user_id"));
             currentUser.setKarma(user.getString("karma"));
+            currentUser.setSubmissionsCount(user.getString("submissions"));
+            currentUser.setCommentsCount(user.getString("comments"));
         } catch (ClientProtocolException e) {
             System.out.println("ClientProtocolException in getUser: " + e.getMessage());
         } catch (IOException e) {
@@ -179,7 +184,8 @@ public class FFDBController extends Activity {
         User currentUser = new User();
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://143.215.50.116/foodflip/insertuser.php");
+
+        HttpPost httppost = new HttpPost("http://" + IP_ADDRESS + "/foodflip/insertuser.php");
         try {
             List<BasicNameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("user_id", deviceId));

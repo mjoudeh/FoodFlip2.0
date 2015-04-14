@@ -12,10 +12,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -34,8 +30,6 @@ public class SearchScreenActivity extends Activity {
     public static final String MyPREFERENCES = "MyPrefs";
     FFDBController ffdbController = new FFDBController();
     String fileName = "FoodEntriesFile";
-    FileOutputStream fileOutputStream;
-    FileInputStream fileInputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +45,6 @@ public class SearchScreenActivity extends Activity {
 
         back_button_search_form.setOnClickListener(mainScreen);
 
-        try {
-            fileInputStream = openFileInput(fileName);
-            int b = 1;
-            while(b != -1) {
-                b = fileInputStream.read();
-                System.out.println("fileInputStream: " + b);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found exception in SSA: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IOException in fileInputStream.read(): " + e.getMessage());
-        }
-
-
         new PopulateFoodEntries().execute();
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -78,26 +58,6 @@ public class SearchScreenActivity extends Activity {
      */
     public void getFoodEntries() {
         foodEntries = ffdbController.getFoodEntries();
-        storeFoodEntries();
-    }
-
-    public void storeFoodEntries() {
-        try {
-            fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            System.out.println("FileNotFoundException for output in SSA: " + e.getMessage());
-        }
-
-        if (fileOutputStream == null)
-            return;
-
-        for (int i = 0; i < foodEntries.size(); i++) {
-            try {
-                fileOutputStream.write(Integer.toString(foodEntries.get(i).getId()).getBytes());
-            } catch (IOException e) {
-                System.out.println("IOException in storeFoodEntries: " + e.getMessage());
-            }
-        }
     }
 
     /*
@@ -116,9 +76,9 @@ public class SearchScreenActivity extends Activity {
     *
     *  @param position position of the clicked food entry in the httpResponse arrayList.
     */
-    public void onItemClick(int position)
+    public void onEntryClick(int index)
     {
-        final FoodEntry entry = foodEntries.get(position);
+        final FoodEntry entry = foodEntries.get(index);
 
         Intent entryScreen = new Intent(getApplicationContext(), EntryScreenActivity.class);
 
@@ -131,6 +91,10 @@ public class SearchScreenActivity extends Activity {
         entryScreen.putExtra("id", entry.getId());
 
         startActivity(entryScreen);
+    }
+
+    public boolean hasVoted(int index) {
+        return foodEntries.get(index).getHasVoted();
     }
 
     private void showProgressDialog() {

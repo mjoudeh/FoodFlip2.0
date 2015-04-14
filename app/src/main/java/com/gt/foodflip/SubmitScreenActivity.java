@@ -64,7 +64,7 @@ public class SubmitScreenActivity extends Activity {
 
         back_button_submit_form.setOnClickListener(mainScreen);
         submit_button_submit_form.setOnClickListener(submitFood);
-
+        account_button_submit_form.setOnClickListener(accountScreen);
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
@@ -78,6 +78,16 @@ public class SubmitScreenActivity extends Activity {
     View.OnClickListener mainScreen = new View.OnClickListener() {
         public void onClick(View v) {
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainScreen);
+        }
+    };
+
+    /**
+     * the accountScreen onClickListener takes the user to their account screen.
+     */
+    View.OnClickListener accountScreen = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent mainScreen = new Intent(getApplicationContext(), AccountScreenActivity.class);
             startActivity(mainScreen);
         }
     };

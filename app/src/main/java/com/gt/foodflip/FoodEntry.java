@@ -11,6 +11,7 @@ public class FoodEntry {
     private String description = "";
     private int votes;
     private int id;
+    private boolean hasVoted;
 
     /* Setters */
     public void setBuilding(String building)
@@ -44,6 +45,10 @@ public class FoodEntry {
         this.id = id;
     }
 
+    public void setHasVoted(boolean hasVoted) {
+        this.hasVoted = hasVoted;
+    }
+
     /* Getters */
     public String getBuilding()
     {
@@ -73,5 +78,9 @@ public class FoodEntry {
 
     public int getId() {
         return this.id;
+    }
+
+    public boolean getHasVoted() {
+        return this.hasVoted;
     }
 }
