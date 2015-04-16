@@ -100,7 +100,7 @@ class FFDB_Functions {
     }
 	
 	public function getAllEntriesAndUserVotes($id) {
-		$result = mysql_query("SELECT * FROM food_entries LEFT JOIN votes ON votes.user_id = '$id' AND food_entries.food_id = votes.id");
+		$result = mysql_query("SELECT * FROM food_entries LEFT JOIN votes ON votes.user_id = '$id' AND food_entries.food_id = votes.id GROUP BY food_entries.food_id");
 		return $result;
 	}
 
