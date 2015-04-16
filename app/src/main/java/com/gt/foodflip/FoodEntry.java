@@ -10,6 +10,7 @@ public class FoodEntry {
     private String price ="";
     private String description = "";
     private int votes;
+    private int vote;
     private int id;
     private boolean hasVoted;
 
@@ -39,6 +40,10 @@ public class FoodEntry {
 
     public void setVotes(int votes) {
         this.votes = votes;
+    }
+
+    public void setVote(int vote) {
+        this.vote = vote;
     }
 
     public void setId(int id) {
@@ -74,6 +79,10 @@ public class FoodEntry {
 
     public int getVotes() {
         return this.votes;
+    }
+
+    public int getVote() {
+        return this.vote;
     }
 
     public int getId() {

@@ -49,7 +49,7 @@ public class SearchScreenActivity extends Activity {
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        System.out.println("Shared preferences for id: " + sharedPreferences.getString("id", "-1"));
+        System.out.println("Shared preferences for id: " + sharedPreferences.getString("user_id", "-1"));
     }
 
     /*
@@ -57,7 +57,8 @@ public class SearchScreenActivity extends Activity {
      * the php script getentries, which returns all food entries in the database.
      */
     public void getFoodEntries() {
-        foodEntries = ffdbController.getFoodEntries();
+        foodEntries = ffdbController
+                .getFoodEntriesAndVotes(sharedPreferences.getString("user_id", "-1"));
     }
 
     /*
@@ -95,6 +96,13 @@ public class SearchScreenActivity extends Activity {
 
     public boolean hasVoted(int index) {
         return foodEntries.get(index).getHasVoted();
+    }
+
+    public void setVote(int index, int vote) {
+        foodEntries.get(index).setHasVoted(true);
+        foodEntries.get(index).setVote(vote);
+        new InsertVoteInBackgroundThread(sharedPreferences.getString("user_id", "-1"), index, vote)
+                .execute();
     }
 
     private void showProgressDialog() {
@@ -151,6 +159,28 @@ public class SearchScreenActivity extends Activity {
                 return;
 
             dismissProgressDialog();
+        }
+    }
+
+    public class InsertVoteInBackgroundThread extends AsyncTask<Void, Void, Void> {
+        private String deviceId;
+        private int id;
+        private int vote;
+
+        public InsertVoteInBackgroundThread(String deviceId, int id, int vote) {
+            this.deviceId = deviceId;
+            this.id = id;
+            this.vote = vote;
+        }
+        public void onPreExecute() {
+        }
+
+        public Void doInBackground(Void... unused) {
+            ffdbController.insertVote(this.deviceId, this.id, this.vote);
+            return null;
+        }
+
+        public void onPostExecute(Void unused) {
         }
     }
 }

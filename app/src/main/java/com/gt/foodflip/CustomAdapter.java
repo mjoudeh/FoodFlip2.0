@@ -126,8 +126,10 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
 
         @Override
         public void onClick(View view) {
+            System.out.println(this.index);
             if (searchScreenActivity.hasVoted(this.index))
                 return;
+            searchScreenActivity.setVote(this.index, 1);
             int currentVotes = Integer.parseInt(this.votes.getText().toString());
             this.votes.setText(Integer.toString(++currentVotes));
         }
