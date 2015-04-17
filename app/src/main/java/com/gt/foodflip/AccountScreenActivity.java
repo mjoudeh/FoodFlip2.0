@@ -3,7 +3,6 @@ package com.gt.foodflip;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,20 +35,14 @@ public class AccountScreenActivity extends Activity {
         back_button_account_view = (ImageButton) findViewById(R.id.back_button_search_form);
 
 
-        back_button_account_view.setOnClickListener(mainScreen);
+        back_button_account_view.setOnClickListener(previousScreen);
 
         new PopulateAccountView();
     }
 
-    /**
-     * the submitFood onClickListener is called when the submit button is clicked. It is
-     * responsible for actually inputting the food entry into the database by making an
-     * http request to insertentry.php.
-     */
-    View.OnClickListener mainScreen = new View.OnClickListener() {
+    View.OnClickListener previousScreen = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(mainScreen);
+            finish();
         }
     };
 

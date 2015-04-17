@@ -44,6 +44,7 @@ public class SearchScreenActivity extends Activity {
         account_button_search_form = (ImageButton) findViewById(R.id.account_button_search_form);
 
         back_button_search_form.setOnClickListener(mainScreen);
+        account_button_search_form.setOnClickListener(accountScreen);
 
         new PopulateFoodEntries().execute();
 
@@ -67,6 +68,16 @@ public class SearchScreenActivity extends Activity {
     View.OnClickListener mainScreen = new View.OnClickListener() {
         public void onClick(View v) {
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainScreen);
+        }
+    };
+
+    /**
+     * the accountScreen onClickListener takes the user to their account screen.
+     */
+    View.OnClickListener accountScreen = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent mainScreen = new Intent(getApplicationContext(), AccountScreenActivity.class);
             startActivity(mainScreen);
         }
     };
