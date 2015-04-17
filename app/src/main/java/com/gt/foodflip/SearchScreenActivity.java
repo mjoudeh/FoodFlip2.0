@@ -94,20 +94,29 @@ public class SearchScreenActivity extends Activity {
         startActivity(entryScreen);
     }
 
-    public boolean hasVoted(int index) {
+    public boolean hasVoted(int id) {
+        int index;
+        if ((index = getEntryIndex(id)) == -1)
+            return false;
         return foodEntries.get(index).getHasVoted();
     }
 
     public void setVote(int id, int vote) {
         int index;
-        for (index = 0; index < foodEntries.size(); index++)
-            if (foodEntries.get(index).getId() == id)
-                break;
+        if ((index = getEntryIndex(id)) == -1)
+            return;
         foodEntries.get(index).setHasVoted(true);
         foodEntries.get(index).setVote(vote);
         new InsertVoteInBackgroundThread(sharedPreferences.getString("user_id", "-1"),
                 id, vote)
                 .execute();
+    }
+
+    public int getEntryIndex(int id) {
+        for (int index = 0; index < foodEntries.size(); index++)
+            if (foodEntries.get(index).getId() == id)
+                return index;
+        return -1;
     }
 
     private void showProgressDialog() {
