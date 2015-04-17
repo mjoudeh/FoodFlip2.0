@@ -76,8 +76,9 @@ class FFDB_Functions {
 	
 	public function storeVote($user_id, $id, $vote) {
 		$result = mysql_query("INSERT INTO votes(user_id, id, vote) VALUES('$user_id', '$id', '$vote')");
+		$update_table = mysql_query("UPDATE food_entries SET votes = votes + $vote WHERE food_id = '$id'");
 		
-		if ($result) {
+		if ($result && $update_table) {
 			return true;
 		} else {
 			return false;

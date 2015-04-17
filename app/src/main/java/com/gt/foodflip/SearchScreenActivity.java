@@ -98,10 +98,15 @@ public class SearchScreenActivity extends Activity {
         return foodEntries.get(index).getHasVoted();
     }
 
-    public void setVote(int index, int vote) {
+    public void setVote(int id, int vote) {
+        int index;
+        for (index = 0; index < foodEntries.size(); index++)
+            if (foodEntries.get(index).getId() == id)
+                break;
         foodEntries.get(index).setHasVoted(true);
         foodEntries.get(index).setVote(vote);
-        new InsertVoteInBackgroundThread(sharedPreferences.getString("user_id", "-1"), index, vote)
+        new InsertVoteInBackgroundThread(sharedPreferences.getString("user_id", "-1"),
+                id, vote)
                 .execute();
     }
 
