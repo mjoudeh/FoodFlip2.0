@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FFDBController extends Activity {
-    final static String IP_ADDRESS = "128.61.124.17";
+    final static String IP_ADDRESS = "192.168.1.4";
 
     public void submitFood(String deviceId, String building, String location, String types, String price,
                            String description) {
