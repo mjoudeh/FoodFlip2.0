@@ -159,7 +159,12 @@ public class EntryScreenActivity extends Activity {
         dismissProgressDialog();
         super.onDestroy();
     }
+    @Override
+    protected void onResume() {
 
+        super.onResume();
+        this.onCreate(null);
+    }
 
     /**
      * Shows a loading progress dialog while populating the food entries.

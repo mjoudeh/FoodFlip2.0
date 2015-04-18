@@ -15,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_margin="5dp"
-        android:textColor="#ff80400f" />
+        android:textColor="#000000" />
 
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_toEndOf="@+id/food_type"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:textColor="#ff368b2d" />
+        android:textColor="#56080808" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_below="@+id/food_type"
         android:layout_alignLeft="@+id/food_type"
         android:layout_alignStart="@+id/food_type"
-        android:textColor="#ffadadb1" />
+        android:textColor="#56080808" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +45,8 @@
         android:layout_below="@+id/building"
         android:layout_alignLeft="@+id/building"
         android:layout_alignStart="@+id/building"
-        android:layout_marginTop="9dp" />
+        android:layout_marginTop="9dp"
+        android:textColor="#56080808"/>
 
     <ImageButton
         android:layout_width="50dp"
@@ -70,7 +71,8 @@
         android:layout_alignLeft="@+id/upvote"
         android:layout_alignStart="@+id/upvote"
         android:gravity="center"
-        android:layout_above="@+id/location" />
+        android:layout_above="@+id/location"
+        android:textColor="#56080808"/>
 
     <ImageButton
         android:layout_width="wrap_content"
