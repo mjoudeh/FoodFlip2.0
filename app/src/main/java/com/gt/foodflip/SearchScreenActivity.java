@@ -44,12 +44,13 @@ public class SearchScreenActivity extends Activity {
         account_button_search_form = (ImageButton) findViewById(R.id.account_button_search_form);
 
         back_button_search_form.setOnClickListener(mainScreen);
+        account_button_search_form.setOnClickListener(accountScreen);
 
         new PopulateFoodEntries().execute();
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        System.out.println("Shared preferences for id: " + sharedPreferences.getString("id", "-1"));
+        System.out.println("Shared preferences for id: " + sharedPreferences.getString("user_id", "-1"));
     }
 
     /*
@@ -57,7 +58,8 @@ public class SearchScreenActivity extends Activity {
      * the php script getentries, which returns all food entries in the database.
      */
     public void getFoodEntries() {
-        foodEntries = ffdbController.getFoodEntries();
+        foodEntries = ffdbController
+                .getFoodEntriesAndVotes(sharedPreferences.getString("user_id", "-1"));
     }
 
     /*
@@ -66,6 +68,16 @@ public class SearchScreenActivity extends Activity {
     View.OnClickListener mainScreen = new View.OnClickListener() {
         public void onClick(View v) {
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainScreen);
+        }
+    };
+
+    /**
+     * the accountScreen onClickListener takes the user to their account screen.
+     */
+    View.OnClickListener accountScreen = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent mainScreen = new Intent(getApplicationContext(), AccountScreenActivity.class);
             startActivity(mainScreen);
         }
     };
@@ -93,8 +105,29 @@ public class SearchScreenActivity extends Activity {
         startActivity(entryScreen);
     }
 
-    public boolean hasVoted(int index) {
+    public boolean hasVoted(int id) {
+        int index;
+        if ((index = getEntryIndex(id)) == -1)
+            return false;
         return foodEntries.get(index).getHasVoted();
+    }
+
+    public void setVote(int id, int vote) {
+        int index;
+        if ((index = getEntryIndex(id)) == -1)
+            return;
+        foodEntries.get(index).setHasVoted(true);
+        foodEntries.get(index).setVote(vote);
+        new InsertVoteInBackgroundThread(sharedPreferences.getString("user_id", "-1"),
+                id, vote)
+                .execute();
+    }
+
+    public int getEntryIndex(int id) {
+        for (int index = 0; index < foodEntries.size(); index++)
+            if (foodEntries.get(index).getId() == id)
+                return index;
+        return -1;
     }
 
     private void showProgressDialog() {
@@ -151,6 +184,28 @@ public class SearchScreenActivity extends Activity {
                 return;
 
             dismissProgressDialog();
+        }
+    }
+
+    public class InsertVoteInBackgroundThread extends AsyncTask<Void, Void, Void> {
+        private String deviceId;
+        private int id;
+        private int vote;
+
+        public InsertVoteInBackgroundThread(String deviceId, int id, int vote) {
+            this.deviceId = deviceId;
+            this.id = id;
+            this.vote = vote;
+        }
+        public void onPreExecute() {
+        }
+
+        public Void doInBackground(Void... unused) {
+            ffdbController.insertVote(this.deviceId, this.id, this.vote);
+            return null;
+        }
+
+        public void onPostExecute(Void unused) {
         }
     }
 }

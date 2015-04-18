@@ -102,7 +102,7 @@ public class SubmitScreenActivity extends Activity {
             if (!validateInput())
                 return;
 
-            String deviceId = sharedPreferences.getString("id", "-1");
+            String deviceId = sharedPreferences.getString("user_id", "-1");
             String building = buildingsList.getText().toString();
             String location = text_location.getText().toString();
             String types = getTypes();

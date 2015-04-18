@@ -66,7 +66,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
         public TextView votes;
         public ImageButton downvote;
         public ImageButton upvote;
-        public int index;
+        public int id;
     }
 
     public View getView(int index, View view, ViewGroup parent) {
@@ -97,11 +97,11 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             holder.votes.setText(Integer.toString(foodEntry.getVotes()));
             holder.downvote = (ImageButton) view.findViewById(R.id.downvote);
             holder.upvote = (ImageButton) view.findViewById(R.id.upvote);
-            holder.index = index;
+            holder.id = ((FoodEntry) entries.get(index)).getId();
 
             view.setOnClickListener(new OnItemClickListener(index));
-            holder.downvote.setOnClickListener(new OnDownvoteClickListener(holder.votes, holder.index));
-            holder.upvote.setOnClickListener(new OnUpvoteClickListener(holder.votes, holder.index));
+            holder.downvote.setOnClickListener(new OnDownvoteClickListener(holder.votes, holder.id));
+            holder.upvote.setOnClickListener(new OnUpvoteClickListener(holder.votes, holder.id));
         }
         return view;
     }
@@ -116,18 +116,20 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
      */
     private class OnUpvoteClickListener implements View.OnClickListener {
         private TextView votes;
-        private int index;
+        private int id;
         private SearchScreenActivity searchScreenActivity = (SearchScreenActivity) activity;
 
         OnUpvoteClickListener(TextView votes, int index) {
             this.votes = votes;
-            this.index = index;
+            this.id = index;
         }
 
         @Override
         public void onClick(View view) {
-            if (searchScreenActivity.hasVoted(this.index))
+            System.out.println(this.id);
+            if (searchScreenActivity.hasVoted(this.id))
                 return;
+            searchScreenActivity.setVote(this.id, 1);
             int currentVotes = Integer.parseInt(this.votes.getText().toString());
             this.votes.setText(Integer.toString(++currentVotes));
         }
@@ -138,18 +140,20 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
      */
     private class OnDownvoteClickListener implements View.OnClickListener {
         private TextView votes;
-        private int index;
+        private int id;
         private SearchScreenActivity searchScreenActivity = (SearchScreenActivity) activity;
 
-        OnDownvoteClickListener(TextView votes, int index) {
+        OnDownvoteClickListener(TextView votes, int id) {
             this.votes = votes;
-            this.index = index;
+            this.id = id;
         }
 
         @Override
         public void onClick(View view) {
-            if (searchScreenActivity.hasVoted(this.index))
+            System.out.println(this.id);
+            if (searchScreenActivity.hasVoted(this.id))
                 return;
+            searchScreenActivity.setVote(this.id, -1);
             int currentVotes = Integer.parseInt(this.votes.getText().toString());
             this.votes.setText(Integer.toString(--currentVotes));
         }

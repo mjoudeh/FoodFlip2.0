@@ -69,11 +69,22 @@ class FFDB_Functions {
 		
         if ($result) {
 			return true;
-        } else {			
-			// For other errors
+        } else {
 			return false;
 		}
     }
+	
+	public function storeVote($user_id, $id, $vote) {
+		$result = mysql_query("INSERT INTO votes(user_id, id, vote) VALUES('$user_id', '$id', '$vote')");
+		$update_table = mysql_query("UPDATE food_entries SET votes = votes + $vote WHERE food_id = '$id'");
+		
+		if ($result && $update_table) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	 /**
      * Getting all entries
      */
@@ -88,6 +99,12 @@ class FFDB_Functions {
         $result = mysql_query("SELECT * FROM food_entries");//  WHERE syncsts = FALSE");
         return $result;
     }
+	
+	public function getAllEntriesAndUserVotes($id) {
+		$result = mysql_query("SELECT * FROM food_entries LEFT JOIN votes ON votes.user_id = '$id' AND food_entries.food_id = votes.id GROUP BY food_entries.food_id");
+		return $result;
+	}
+
 	
 	public function updateSyncSts($type, $sts){
 		$result = mysql_query("UPDATE food_entries SET syncsts = $sts WHERE Type = $type");
