@@ -55,8 +55,9 @@ public class AddCommentActivity extends Activity {
      */
     View.OnClickListener searchScreen = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
-            startActivity(searchScreen);
+            finish();
+            /*Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
+            startActivity(searchScreen);*/
         }
     };
     View.OnClickListener submitClear = new View.OnClickListener() {
@@ -87,9 +88,10 @@ public class AddCommentActivity extends Activity {
         String comment = comment_edit_text.getText().toString();
 
         ffdbController.addAComment(entryId, comment);
-        Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
+        finish();
+        /*Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
 
-        startActivity(searchScreen);
+        startActivity(searchScreen);*/
     }
 
     private void showProgressDialog() {

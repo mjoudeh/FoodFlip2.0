@@ -24,7 +24,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="10dp"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"/>
 
     <ImageButton
         android:id="@+id/back_button_search_form"
