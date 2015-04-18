@@ -37,19 +37,13 @@ public class SearchScreenActivity extends Activity {
         setContentView(R.layout.activity_search);
         customListView = this;
         foodEntries = new ArrayList<>();
-
-
         listView = (ListView) findViewById(R.id.entries_list_view);
         back_button_search_form = (ImageButton) findViewById(R.id.back_button_search_form);
         account_button_search_form = (ImageButton) findViewById(R.id.account_button_search_form);
-
         back_button_search_form.setOnClickListener(mainScreen);
         account_button_search_form.setOnClickListener(accountScreen);
-
         new PopulateFoodEntries().execute();
-
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
         System.out.println("Shared preferences for id: " + sharedPreferences.getString("user_id", "-1"));
     }
 

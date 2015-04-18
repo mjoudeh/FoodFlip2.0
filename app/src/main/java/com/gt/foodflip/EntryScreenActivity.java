@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,9 +21,9 @@ public class EntryScreenActivity extends Activity {
     private int entryId;
     FFDBController ffdbController = new FFDBController();
 
-    Button entry_view_submit_button;
+    Button entry_view_add_button;
     Button entry_view_cancel_button;
-    EditText comment_edit_text;
+
     ImageButton back_button_entry_view;
     ImageButton account_button_entry_view;
     ListView comments;
@@ -37,14 +36,20 @@ public class EntryScreenActivity extends Activity {
     TextView description;
     TextView votes;
 
+    String building_;
+    String location_;
+    String type_;
+    String description_;
+    String price_;
+    int votes_;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entry_view);
 
-        entry_view_submit_button = (Button) findViewById(R.id.entry_view_submit_button);
+        entry_view_add_button = (Button) findViewById(R.id.entry_view_add_button);
         entry_view_cancel_button = (Button) findViewById(R.id.entry_view_cancel_button);
-        comment_edit_text = (EditText) findViewById(R.id.comment_edit_text);
         back_button_entry_view = (ImageButton) findViewById(R.id.back_button_entry_view);
         account_button_entry_view = (ImageButton) findViewById(R.id.account_button_entry_view);
         comments = (ListView) findViewById(R.id.comments);
@@ -56,7 +61,7 @@ public class EntryScreenActivity extends Activity {
         votes = (TextView) findViewById(R.id.votes);
 
         back_button_entry_view.setOnClickListener(searchScreen);
-        entry_view_submit_button.setOnClickListener(submitComment);
+        entry_view_add_button.setOnClickListener(addComment);
         entry_view_cancel_button.setOnClickListener(submitCancel);
 
         setEntryViewValues();
@@ -67,12 +72,6 @@ public class EntryScreenActivity extends Activity {
      * Sets each respective textView in the entry_view xml.
      */
     public void setEntryViewValues() {
-        String building_;
-        String location_;
-        String type_;
-        String description_;
-        String price_;
-        int votes_;
 
         Bundle entry = getIntent().getExtras();
         if (entry != null) {
@@ -97,9 +96,18 @@ public class EntryScreenActivity extends Activity {
     /**
      * This method takes us back to the search screen when the back button is clicked.
      */
-    View.OnClickListener submitComment = new View.OnClickListener() {
+    View.OnClickListener addComment = new View.OnClickListener() {
         public void onClick(View v) {
-            new AddAComment().execute();
+
+            Intent addComment = new Intent(getApplicationContext(), AddCommentActivity.class);
+            addComment.putExtra("building", building_);
+            addComment.putExtra("location", location_);
+            addComment.putExtra("type", type_);
+            addComment.putExtra("price", price_);
+            addComment.putExtra("description", description_);
+            addComment.putExtra("votes", votes_);
+            addComment.putExtra("id", entryId);
+            startActivity(addComment);
         }
     };
 
@@ -117,6 +125,8 @@ public class EntryScreenActivity extends Activity {
         }
     };
 
+
+
     /**
      * This gets all comments given a food entries id, stores them in an ArrayList, then returns
      * the ArrayList.
@@ -127,20 +137,6 @@ public class EntryScreenActivity extends Activity {
         return ffdbController.getEntryComments(entryId);
     }
 
-    public void addAComment() {
-        System.out.println("comment: " + comment_edit_text.getText().toString());
-        if (comment_edit_text.getText().toString() == null ||
-                comment_edit_text.getText().toString().equals("") ||
-                comment_edit_text.getText().toString().equals("Add a comment."))
-            return;
-
-        String comment = comment_edit_text.getText().toString();
-
-        ffdbController.addAComment(entryId, comment);
-
-        Intent searchScreen = new Intent(getApplicationContext(), SearchScreenActivity.class);
-        startActivity(searchScreen);
-    }
 
     private void showProgressDialog() {
         if (pDialog == null) {
@@ -196,18 +192,8 @@ public class EntryScreenActivity extends Activity {
             dismissProgressDialog();
         }
     }
-
-    public class AddAComment extends AsyncTask<Void, Void, Void> {
-        public AddAComment() {
-        }
-
         public void onPreExecute() {
             showProgressDialog();
-        }
-
-        public Void doInBackground(Void... unused) {
-            addAComment();
-            return null;
         }
 
         public void onPostExecute(Void unused) {
@@ -217,4 +203,4 @@ public class EntryScreenActivity extends Activity {
             dismissProgressDialog();
         }
     }
-}
+
