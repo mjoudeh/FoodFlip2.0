@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +19,7 @@
         android:background="@color/ff_blue"
         android:src="@drawable/account_button"
         android:focusableInTouchMode="false"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:adjustViewBounds="true"
         android:layout_weight="0.5"
         android:layout_alignParentTop="true"
@@ -68,7 +69,7 @@
         android:layout_alignTop="@+id/text_background_white"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="My Account"
+        android:text="@string/my_account"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="center"
@@ -84,10 +85,10 @@
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/account_button_search_form"
         android:layout_toStartOf="@+id/account_button_search_form"
-        android:text="Flippy Points :)"
+        android:text="@string/flippy_points"
         android:textColor="#ff959596"
-        android:paddingLeft="25sp"
-        android:textSize="20dp" />
+        android:paddingLeft="25dp"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,9 +100,9 @@
         android:layout_alignRight="@+id/karma"
         android:layout_alignEnd="@+id/karma"
         android:paddingLeft="25sp"
-        android:text="Submissions"
+        android:text="@string/submissions"
         android:textColor="#ff959596"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,8 +115,8 @@
         android:layout_alignEnd="@+id/submissions"
         android:textColor="#ff959596"
         android:paddingLeft="25dp"
-        android:text="Comments"
-        android:textSize="20dp" />
+        android:text="@string/comments"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -124,30 +125,30 @@
         android:layout_below="@+id/editText2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:paddingRight="20dp"
-        android:text="0" />
+        android:text="@string/number_zero" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="@string/number_zero"
         android:id="@+id/submissions_text"
         android:layout_below="@+id/karma_text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="@string/number_zero"
         android:id="@+id/textView3"
         android:layout_below="@+id/submissions"
         android:layout_alignRight="@+id/submissions_text"
         android:layout_alignEnd="@+id/submissions_text"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:paddingRight="20dp" />
 
 </RelativeLayout>

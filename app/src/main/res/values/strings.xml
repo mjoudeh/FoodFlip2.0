@@ -8,6 +8,31 @@
     <string name="upVoteButton_description">Up Vote</string>
     <string name="downVoteButton_description">Down Vote</string>
     <string name="action_settings">Settings</string>
+    <string name="building">Building</string>
+    <string name="location">Location</string>
+    <string name="location_hint">Location (room #, area, etc.)</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="votes">Votes</string>
+    <string name="description_hint">Description (optional)</string>
+    <string name="type">Type</string>
+    <string name="pizza">Pizza</string>
+    <string name="wings">Wings</string>
+    <string name="baked_goods">Baked Goods</string>
+    <string name="sandwiches">Sandwiches</string>
+    <string name="drinks">Drinks</string>
+    <string name="other">Other</string>
+    <string name="food_truck">Food Truck</string>
+    <string name="my_account">My Account</string>
+    <string name="flippy_points">Flippy Points :)</string>
+    <string name="submissions">Submissions</string>
+    <string name="comments">Comments</string>
+    <string name="number_zero">0</string>
+    <string name="comment_hint">Add a comment.</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="submit_comment">Submit Comment</string>
+    <string name="add_comment">Add Comment</string>
     <string-array name="list_of_buildings">
         <item>1594 Marietta Blvd</item>
         <item>430 North</item>
