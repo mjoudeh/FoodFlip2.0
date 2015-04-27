@@ -26,7 +26,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
     private ArrayList entries;
     private static LayoutInflater inflater = null;
     private FoodEntry foodEntry;
-    ViewHolder holder;
+    private ViewHolder holder;
 
     /**
      * CustomAdapter Constructor.

@@ -19,15 +19,15 @@ import java.util.UUID;
  * MainActivity displays the home screen, logo, search, and submit buttons.
  */
 public class MainActivity extends ActionBarActivity {
-    ImageButton main_screen_search;
-    ImageButton main_screen_submit;
-    static User currentUser = new User();
-    ProgressDialog pDialog;
-    public static final String MyPREFERENCES = "MyPrefs";
+    private ImageButton main_screen_search;
+    private ImageButton main_screen_submit;
+    private static User currentUser = new User();
+    private ProgressDialog pDialog;
+    private static final String MyPREFERENCES = "MyPrefs";
 
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
-    FFDBController ffdbController = new FFDBController();
+    private FFDBController ffdbController = new FFDBController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,15 @@ public class MainActivity extends ActionBarActivity {
         if (!currentUser.isSet())
             return;
 
-        if (!sharedPreferences.getString("id", "-1").equals("-1"))
+        String sharedPref;
+
+        try {
+            sharedPref = sharedPreferences.getString("id", "-1");
+        } catch (NullPointerException e) {
+            return;
+        }
+
+        if (sharedPref != null && !sharedPref.equals("-1"))
             return;
 
         SharedPreferences.Editor editor = sharedPreferences.edit();

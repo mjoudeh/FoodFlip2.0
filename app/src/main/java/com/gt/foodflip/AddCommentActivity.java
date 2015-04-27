@@ -19,12 +19,12 @@ import android.widget.ImageButton;
 public class AddCommentActivity extends Activity {
 
     private int entryId;
-    Button add_comment_submit_button;
-    Button add_comment_clear_button;
-    ImageButton back_button_add_comment;
-    ImageButton account_button_add_comment;
-    ProgressDialog pDialog;
-    EditText comment_edit_text;
+    private Button add_comment_submit_button;
+    private Button add_comment_clear_button;
+    private ImageButton back_button_add_comment;
+    private ImageButton account_button_add_comment;
+    private ProgressDialog pDialog;
+    private EditText comment_edit_text;
 
     FFDBController ffdbController = new FFDBController();
     SharedPreferences sharedPreferences;
@@ -137,7 +137,7 @@ public class AddCommentActivity extends Activity {
             dismissProgressDialog();
         }
 
-    };
+    }
 
 }
 

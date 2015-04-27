@@ -15,14 +15,14 @@ import android.widget.TextView;
  */
 public class AccountScreenActivity extends Activity {
     private int entryId;
-    FFDBController ffdbController = new FFDBController();
-    ProgressDialog pDialog;
+    private FFDBController ffdbController = new FFDBController();
+    private ProgressDialog pDialog;
     String MyPREFERENCES = "MyPrefs";
     ImageButton back_button_account_view;
     SharedPreferences sharedPreferences;
-    TextView karma_text;
-    TextView submissions_text;
-    TextView comments_text;
+    private TextView karma_text;
+    private TextView submissions_text;
+    private TextView comments_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

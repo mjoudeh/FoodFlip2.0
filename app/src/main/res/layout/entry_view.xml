@@ -21,7 +21,6 @@
         android:focusableInTouchMode="false"
         android:layout_gravity="end"
         android:adjustViewBounds="true"
-        android:layout_weight="0.5"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

@@ -19,29 +19,29 @@ import java.util.ArrayList;
  */
 public class EntryScreenActivity extends Activity {
     private int entryId;
-    FFDBController ffdbController = new FFDBController();
+    private FFDBController ffdbController = new FFDBController();
 
-    Button entry_view_add_button;
-    Button entry_view_cancel_button;
+    private Button entry_view_add_button;
+    private Button entry_view_cancel_button;
 
-    ImageButton back_button_entry_view;
-    ImageButton account_button_entry_view;
-    ListView comments;
-    ProgressDialog pDialog;
-    ArrayAdapter arrayAdapter;
-    TextView building;
-    TextView location;
-    TextView type;
-    TextView price;
-    TextView description;
-    TextView votes;
+    private ImageButton back_button_entry_view;
+    private ImageButton account_button_entry_view;
+    private ListView comments;
+    private ProgressDialog pDialog;
+    private ArrayAdapter arrayAdapter;
+    private TextView building;
+    private TextView location;
+    private TextView type;
+    private TextView price;
+    private TextView description;
+    private TextView votes;
 
-    String building_;
-    String location_;
-    String type_;
-    String description_;
-    String price_;
-    int votes_;
+    private String building_;
+    private String location_;
+    private String type_;
+    private String description_;
+    private String price_;
+    private int votes_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
