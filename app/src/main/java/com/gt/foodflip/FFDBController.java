@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FFDBController extends Activity {
-    final static String IP_ADDRESS = "143.215.51.77";
+    final static String IP_ADDRESS = "98.192.9.6";
 
     public void submitFood(String deviceId, String building, String location, String types, String price,
                            String description) {
@@ -41,7 +41,7 @@ public class FFDBController extends Activity {
         params.put("Building", building);
         params.put("Location", location);
         params.put("FoodType", types);
-        params.put ("price", price);
+        params.put("price", price);
         params.put("FoodDescription", description);
 
 
@@ -88,6 +88,8 @@ public class FFDBController extends Activity {
                 entry.setDescription(obj.getString("foodDescription"));
                 entry.setVotes(Integer.parseInt(obj.getString("votes")));
                 entry.setId(Integer.parseInt(obj.getString("id")));
+                entry.setTimestamp(obj.getString("Timestamp"));
+                entry.setRating(obj.getDouble("Rating"));
                 foodEntries.add(entry);
             }
         } catch (ClientProtocolException e) {
@@ -123,6 +125,8 @@ public class FFDBController extends Activity {
                 entry.setType(obj.getString("foodType"));
                 entry.setPrice(obj.getString("price"));
                 entry.setDescription(obj.getString("foodDescription"));
+                entry.setTimestamp(obj.getString("Timestamp"));
+                entry.setRating(obj.getDouble("Rating"));
                 entry.setVotes(Integer.parseInt(obj.getString("votes")));
                 entry.setId(Integer.parseInt(obj.getString("food_id")));
                 entry.setHasVoted(!obj.getString("vote").equals("null"));
@@ -154,7 +158,7 @@ public class FFDBController extends Activity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity()
                     .getContent(), "UTF-8"));
             StringBuilder builder = new StringBuilder();
-            for (String line = null; (line = reader.readLine()) != null;) {
+            for (String line; (line = reader.readLine()) != null;) {
                 builder.append(line).append("\n");
             }
             JSONTokener tokener = new JSONTokener(builder.toString());

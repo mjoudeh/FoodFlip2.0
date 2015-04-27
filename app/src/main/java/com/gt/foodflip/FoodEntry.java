@@ -13,6 +13,8 @@ public class FoodEntry {
     private int vote;
     private int id;
     private boolean hasVoted;
+    private String timestamp;
+    private double rating;
 
     /* Setters */
     public void setBuilding(String building)
@@ -54,6 +56,10 @@ public class FoodEntry {
         this.hasVoted = hasVoted;
     }
 
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+
+    public void setRating(double rating) { this.rating = rating; }
+
     /* Getters */
     public String getBuilding()
     {
@@ -92,4 +98,9 @@ public class FoodEntry {
     public boolean getHasVoted() {
         return this.hasVoted;
     }
+
+    public String getTimestamp() { return this.timestamp; }
+
+    public double getRating() { return this.rating; }
+
 }
